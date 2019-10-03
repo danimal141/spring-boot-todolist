@@ -5,6 +5,7 @@
     <title>Tasks</title>
 </head>
 <body>
+<p th:if="${tasks.isEmpty()}">There is no task...</p>
 <ul th:unless="${tasks.isEmpty()}">
     <li th:each="task: ${tasks}">
         <span th:unless="${task.done}" th:text="${task.content}"></span>
