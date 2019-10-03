@@ -1,6 +1,6 @@
 package com.example.todolist
 
-import org.hibernate.validator.constraints.NotBlank
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
 /**
@@ -9,5 +9,5 @@ import javax.validation.constraints.Size
 class TaskCreateForm {
     @NotBlank
     @Size(max = 20)
-    val content: String? = null
+    var content: String? = null
 }
