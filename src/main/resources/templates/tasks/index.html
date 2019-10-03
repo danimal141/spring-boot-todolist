@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
     <title>Tasks</title>
 </head>
 <body>
+<a th:href="@{tasks/new}">Create a new task</a>
 <p th:if="${tasks.isEmpty()}">There is no task...</p>
 <ul th:unless="${tasks.isEmpty()}">
     <li th:each="task: ${tasks}">
