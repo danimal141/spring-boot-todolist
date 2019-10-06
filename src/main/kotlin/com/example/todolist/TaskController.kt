@@ -5,6 +5,7 @@ import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
@@ -34,5 +35,13 @@ class TaskController(private val taskRepository: TaskRepository) {
         val content = requireNotNull(form.content)
         taskRepository.create(content)
         return "redirect:/tasks"
+    }
+
+    @GetMapping("{id}/edit")
+    fun edit(@PathVariable("id") id: Long, form: TaskUpdateForm): String {
+        val task = taskRepository.findById(id) ?: throw NotFoundException()
+        form.content = task.content
+        form.done = task.done
+        return "tasks/edit"
     }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit a task</title>
+</head>
+<body>
+<form th:method="patch" th:action="@{./}" th:object="${taskUpdateForm}">
+    <div>
+        <label>
+            Content: <input type="text" th:field="*{content}"/>
+        </label>
+        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Error</p>
+    </div>
+    <div>
+        <label>
+            Done: <input type="checkbox" th:field="*{done}"/>
+        </label>
+    </div>
+    <div>
+        <input type="submit" value="edit"/>
+    </div>
+</form>
+</body>
+</html>
