@@ -4,10 +4,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
 /**
  * Created by hideaki on 2019/09/28.
@@ -43,5 +40,17 @@ class TaskController(private val taskRepository: TaskRepository) {
         form.content = task.content
         form.done = task.done
         return "tasks/edit"
+    }
+
+    @PatchMapping("{id}")
+    fun update(@PathVariable("id") id: Long,
+               @Validated form: TaskUpdateForm,
+               bindingResult: BindingResult): String {
+        if (bindingResult.hasErrors())
+            return "tasks/new"
+        val task = taskRepository.findById(id) ?: throw NotFoundException()
+        val newTask = task.copy(content = requireNotNull(form.content), done = form.done)
+        taskRepository.update(newTask)
+        return "redirect:/tasks"
     }
 }
