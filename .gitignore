@@ -29,3 +29,5 @@ out/
 /.nb-gradle/
 
 .vscode/
+
+*.db
